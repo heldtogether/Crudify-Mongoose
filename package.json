@@ -1,0 +1,30 @@
+{
+	"name": "express-mongoose-crud",
+	"version": "0.0.1",
+	"description": "Generates CRUD routes for a given Mongoose model.",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/heldtogether/express-mongoose-crud.git"
+	},
+	"author": "Josh Sephton",
+	"license": "MIT",
+	"dependencies": {
+		"underscore": "~1.5.2",
+		"express": "~3.4.8",
+		"mongoose": "^3.8.8",
+		"ejs": "^0.8.5",
+		"pluralize": "0.0.10"
+	},
+	"devDependencies": {
+		"grunt": "^0.4.5",
+		"grunt-contrib-jshint": "^0.10.0",
+		"grunt-newer": "^0.7.0",
+		"grunt-contrib-watch": "^0.6.1",
+		"grunt-contrib-yuidoc": "^0.5.2"
+	},
+	"readmeFilename": "Readme.md"
+}
