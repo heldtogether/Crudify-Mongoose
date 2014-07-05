@@ -21,84 +21,155 @@
  * @return {Object} Express app
  */
 
+var _ = require('underscore');
 var express = require('express');
 var mongoose = require('mongoose');
 var pluralize = require('pluralize');
 
+
 var CrudGenerator = function (options){
 
-	var model = options.model;
-	var modelName = options.model.modelName;
-	var routeStem = '/'+pluralize(modelName);
+	var defaultOptions = {
+		theme: __dirname+'/theme/',
+		ignoredProperties: ['__v', '_id']
+	};
+
+	_.defaults(options, defaultOptions);
+
+	this.options = options;
+	this.model = options.model;
+	this.modelName = options.model.modelName;
+	this.routeStem = '/'+pluralize(this.modelName);
+
+};
+
+
+/*
+ * @method app
+ */
+CrudGenerator.prototype.app = function (){
 
 	var app = express();
 
-	app.get(routeStem, options.middleware, listResources);
-	app.get(routeStem+'/create', options.middleware, createResource);
-	app.post(routeStem, options.middleware, storeResource);
-	app.get(routeStem+'/:id', options.middleware, getResource);
-	app.get(routeStem+'/:id/edit', options.middleware, editResource);
-	app.put(routeStem+'/:id', options.middleware, updateResource);
-	app.del(routeStem+'/:id', options.middleware, deleteResource);
+	app.get(
+		this.routeStem,
+		this.options.middleware,
+		this.listResources.bind(this)
+	);
+	app.get(
+		this.routeStem+'/create',
+		this.options.middleware,
+		this.createResource.bind(this)
+	);
+	app.post(
+		this.routeStem,
+		this.options.middleware,
+		this.storeResource.bind(this)
+	);
+	app.get(
+		this.routeStem+'/:id',
+		this.options.middleware,
+		this.getResource.bind(this)
+	);
+	app.get(
+		this.routeStem+'/:id/edit',
+		this.options.middleware,
+		this.editResource.bind(this)
+	);
+	app.put(
+		this.routeStem+'/:id',
+		this.options.middleware,
+		this.updateResource.bind(this)
+	);
+	app.del(
+		this.routeStem+'/:id',
+		this.options.middleware,
+		this.deleteResource.bind(this)
+	);
 
 	return app;
 
-}
+};
+
+
+/*
+ * @method getProperties
+ */
+CrudGenerator.prototype.getProperties = function(){
+	var properties = [];
+	for(var property in this.model.schema.paths){
+		if(this.options.ignoredProperties.indexOf(property) < 0){
+			properties.push(property);
+		}
+	}
+	properties.sort();
+	return properties;
+};
 
 
 /*
  * @method listResources
  */
-function listResources(req, res){
-	console.log('list');
-}
+CrudGenerator.prototype.listResources = function(req, res){
+	var $self = this;
+	this.model
+	.find()
+	.exec(function (err, resources){
+		res.locals.properties = $self.getProperties();
+		res.locals.resources = resources;
+		res.render($self.options.theme+'list.ejs');
+	});
+};
 
 
 /*
  * @method createResource
  */
-function createResource(req, res){
+CrudGenerator.prototype.createResource = function(req, res){
 	console.log('create');
-}
+};
 
 
 /*
  * @method storeResource
  */
-function storeResource(req, res){
+CrudGenerator.prototype.storeResource = function(req, res){
 	console.log('store');
-}
+};
 
 
 /*
  * @method getResource
  */
-function getResource(req, res){
+CrudGenerator.prototype.getResource = function(req, res){
 	console.log('get');
-}
+};
 
 
 /*
  * @method editResource
  */
-function editResource(req, res){
+CrudGenerator.prototype.editResource = function(req, res){
 	console.log('edit');
-}
+};
 
 
 /*
  * @method updateResource
  */
-function updateResource(req, res){
+CrudGenerator.prototype.updateResource = function(req, res){
 	console.log('update');
-}
+};
 
 
 /*
  * @method deleteResource
  */
-function deleteResource(req, res){
+CrudGenerator.prototype.deleteResource = function(req, res){
 	console.log('delete');
-}
+};
 
-module.exports = CrudGenerator;
+module.exports = function (options){
+	var g = new CrudGenerator(options);
+	return g.app();
+};

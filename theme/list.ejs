@@ -1,0 +1,14 @@
+<table>
+	<tr>
+		<% properties.forEach(function(property){ %>
+			<th><%= property %></th>
+		<% }); %>
+	</tr>
+	<% resources.forEach(function(resource){ %>
+		<tr>
+		<% properties.forEach(function(property){ %>
+			<td><%= resource[property] %></td>
+		<% }); %>
+		</tr>
+	<% }); %>
+</table>
