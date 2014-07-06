@@ -66,6 +66,14 @@ CrudGenerator.prototype.app = function (){
 
 	var app = express();
 
+	app.use(function (req, res, next){
+		if(req.url.substr(-1) != '/'){
+			res.redirect(301, req.originalUrl+'/');
+		} else {
+			next();
+		}
+	});
+
 	/*
 	 * GET /{resources}
 	 */
