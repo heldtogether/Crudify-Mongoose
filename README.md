@@ -1,12 +1,12 @@
-express-mongoose-crud
+crudify-mongoose
 ============
 
 Simple generator to create RESTful url routes, render forms and handle Create, Read, Update and Delete requests for a given Mongoose model
 
 ## Install
 
-```
-TBC
+```bash
+$ npm install crudify-mongoose
 ```
 
 ## RESTful routes
