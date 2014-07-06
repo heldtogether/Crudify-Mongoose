@@ -18,7 +18,7 @@ var pluralize = require('pluralize');
 var CrudGenerator = function (options){
 
 	var defaultOptions = {
-		theme: __dirname+'/theme/',
+		theme: __dirname+'/theme',
 		ignoredProperties: ['__v', '_id']
 	};
 
@@ -165,7 +165,7 @@ CrudGenerator.prototype.listResources = function(req, res){
 		res.locals.settings = $self;
 		res.locals.properties = $self.getProperties();
 		res.locals.resources = resources;
-		res.render($self.options.theme+'list.ejs');
+		res.render($self.options.theme+'/list.ejs');
 	});
 };
 
@@ -182,7 +182,7 @@ CrudGenerator.prototype.listResources = function(req, res){
 CrudGenerator.prototype.createResource = function(req, res){
 	res.locals.settings = this;
 	res.locals.properties = this.getProperties();
-	res.render(this.options.theme+'create.ejs');
+	res.render(this.options.theme+'/create.ejs');
 };
 
 
@@ -230,7 +230,7 @@ CrudGenerator.prototype.getResource = function(req, res){
 		res.locals.settings = $self;
 		res.locals.properties = $self.getProperties();
 		res.locals.resource = resource;
-		res.render($self.options.theme+'get.ejs');
+		res.render($self.options.theme+'/get.ejs');
 	});
 };
 
@@ -252,7 +252,7 @@ CrudGenerator.prototype.editResource = function(req, res){
 		res.locals.settings = $self;
 		res.locals.properties = $self.getProperties();
 		res.locals.resource = resource;
-		res.render($self.options.theme+'edit.ejs');
+		res.render($self.options.theme+'/edit.ejs');
 	});
 };
 
