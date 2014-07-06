@@ -1,6 +1,6 @@
 {
 	"name": "crudify-mongoose",
-	"version": "0.0.3",
+	"version": "0.0.4",
 	"description": "Generates CRUD routes for a given Mongoose model.",
 	"main": "index.js",
 	"scripts": {
@@ -14,7 +14,7 @@
 	"license": "MIT",
 	"dependencies": {
 		"underscore": "^1.0.0",
-		"express": "~3.0.0",
+		"express": "^3.0.0",
 		"mongoose": "^3.0.0",
 		"ejs": "*",
 		"pluralize": "^0.0.10"
