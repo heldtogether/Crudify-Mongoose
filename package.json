@@ -13,10 +13,10 @@
 	"author": "Josh Sephton",
 	"license": "MIT",
 	"dependencies": {
-		"underscore": "~1.5.2",
-		"express": "~3.4.8",
-		"mongoose": "^3.8.8",
-		"ejs": "^0.8.5",
+		"underscore": "1.5.2",
+		"express": "3.4.8",
+		"mongoose": "3.8.8",
+		"ejs": "0.8.5",
 		"pluralize": "0.0.10"
 	},
 	"devDependencies": {
