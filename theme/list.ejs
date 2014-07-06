@@ -7,9 +7,14 @@
 	</tr>
 	<% resources.forEach(function(resource){ %>
 		<tr>
-		<% properties.forEach(function(property){ %>
-			<td><%= resource[property] %></td>
-		<% }); %>
+			<% properties.forEach(function(property){ %>
+				<td>
+					<% console.log(resource[property]); %>
+					<% if(typeof resource[property] !== 'undefined'){ %>
+						<%= resource[property] %>
+					<% } %>
+				</td>
+			<% }); %>
 			<td>
 				<a href="<%= resource._id %>">View</a>
 				<a href="<%= resource._id %>/edit">Edit</a>
