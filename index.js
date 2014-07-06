@@ -11,7 +11,7 @@ var pluralize = require('pluralize');
  * @class CrudGenerator
  * @param {Object} options
  * @param {Object} options.model
- * @param {String} options.theme
+ * @param {String} [options.theme]
  * @param {Array} [options.middleware]
  * @param {Array} [options.ignoredProperties]
  */
@@ -75,7 +75,7 @@ CrudGenerator.prototype.app = function (){
 	});
 
 	/*
-	 * GET /{resources}
+	 * GET /{resources}/
 	 */
 	app.get(
 		'/'+this.routeStem+'/',
@@ -83,23 +83,23 @@ CrudGenerator.prototype.app = function (){
 		this.listResources.bind(this)
 	);
 	/*
-	 * GET /{resources}/create
+	 * GET /{resources}/create/
 	 */
 	app.get(
-		'/'+this.routeStem+'/create',
+		'/'+this.routeStem+'/create/',
 		this.options.middleware,
 		this.createResource.bind(this)
 	);
 	/*
-	 * POST /{resources}
+	 * POST /{resources}/
 	 */
 	app.post(
-		'/'+this.routeStem,
+		'/'+this.routeStem+'/',
 		this.options.middleware,
 		this.storeResource.bind(this)
 	);
 	/*
-	 * GET /{resources}/{id}
+	 * GET /{resources}/{id}/
 	 */
 	app.get(
 		'/'+this.routeStem+'/:id/',
@@ -107,15 +107,15 @@ CrudGenerator.prototype.app = function (){
 		this.getResource.bind(this)
 	);
 	/*
-	 * GET /{resources}/{id}/edit
+	 * GET /{resources}/{id}/edit/
 	 */
 	app.get(
-		'/'+this.routeStem+'/:id/edit',
+		'/'+this.routeStem+'/:id/edit/',
 		this.options.middleware,
 		this.editResource.bind(this)
 	);
 	/*
-	 * PUT /{resources}/{id}
+	 * PUT /{resources}/{id}/
 	 */
 	app.put(
 		'/'+this.routeStem+'/:id/',
@@ -123,10 +123,10 @@ CrudGenerator.prototype.app = function (){
 		this.updateResource.bind(this)
 	);
 	/*
-	 * DELETE /{resources}/{id}
+	 * DELETE /{resources}/{id}/
 	 */
 	app.del(
-		'/'+this.routeStem+'/:id',
+		'/'+this.routeStem+'/:id/',
 		this.options.middleware,
 		this.deleteResource.bind(this)
 	);
