@@ -24,9 +24,32 @@ var CrudGenerator = function (options){
 
 	_.defaults(options, defaultOptions);
 
+	/*
+	 * @property options
+	 * @type Object
+	 * @default {
+	 *	theme: __dirname+'/theme/',
+	 *	ignoredProperties: ['__v', '_id']
+	 * }
+	 */
 	this.options = options;
+
+	/*
+	 * @property model
+	 * @type Object
+	 */
 	this.model = options.model;
+
+	/*
+	 * @property modelName
+	 * @type String
+	 */
 	this.modelName = options.model.modelName;
+
+	/*
+	 * @property routeStem
+	 * @type String
+	 */
 	this.routeStem = pluralize(this.modelName);
 
 };
