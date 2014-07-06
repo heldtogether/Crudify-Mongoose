@@ -127,7 +127,9 @@ CrudGenerator.prototype.listResources = function(req, res){
  * @method createResource
  */
 CrudGenerator.prototype.createResource = function(req, res){
-	console.log('create');
+	res.locals.settings = this;
+	res.locals.properties = this.getProperties();
+	res.render(this.options.theme+'create.ejs');
 };
 
 
