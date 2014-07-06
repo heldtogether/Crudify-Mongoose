@@ -9,7 +9,6 @@
 		<tr>
 			<% properties.forEach(function(property){ %>
 				<td>
-					<% console.log(resource[property]); %>
 					<% if(typeof resource[property] !== 'undefined'){ %>
 						<%= resource[property] %>
 					<% } %>
