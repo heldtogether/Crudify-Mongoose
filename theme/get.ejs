@@ -1,0 +1,12 @@
+<table>
+	<% properties.forEach(function(property){ %>
+		<tr>
+			<th><%= property %></th>
+			<td><%= resource[property] %></td>
+		</tr>
+	<% }); %>
+	<tr>
+		<th>Actions</th>
+		<td><a href="<%= resource._id %>/edit">Edit</a></td>
+	</tr>
+</table>

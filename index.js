@@ -143,7 +143,15 @@ CrudGenerator.prototype.storeResource = function(req, res){
  * @method getResource
  */
 CrudGenerator.prototype.getResource = function(req, res){
-	console.log('get');
+	var $self = this;
+	this.model
+	.findOne({_id: req.param('id')})
+	.exec(function (err, resource){
+		res.locals.settings = $self;
+		res.locals.properties = $self.getProperties();
+		res.locals.resource = resource;
+		res.render($self.options.theme+'get.ejs');
+	});
 };
 
 
