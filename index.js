@@ -214,7 +214,12 @@ CrudGenerator.prototype.updateResource = function(req, res){
  * @method deleteResource
  */
 CrudGenerator.prototype.deleteResource = function(req, res){
-	console.log('delete');
+	var $self = this;
+	this.model
+	.findOneAndRemove({_id: req.param('id')})
+	.exec(function (err, resource){
+		res.redirect($self.routeStem);
+	});
 };
 
 module.exports = function (options){
