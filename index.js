@@ -1,13 +1,7 @@
-/*
- *
- * GET /resources
- * GET /resources/create
- * POST /resources
- * GET /resources/{resource}
- * GET /resources/{resource}/edit
- * PUT /resources/{resource}
- * DELETE /resources/{resource}
- */
+var _ = require('underscore');
+var express = require('express');
+var mongoose = require('mongoose');
+var pluralize = require('pluralize');
 
 /**
  * Creates 7 RESTful routes for listing, 
@@ -17,16 +11,10 @@
  * @class CrudGenerator
  * @param {Object} options
  * @param {Object} options.model
+ * @param {String} options.theme
  * @param {Array} [options.middleware]
- * @return {Object} Express app
+ * @param {Array} [options.ignoredProperties]
  */
-
-var _ = require('underscore');
-var express = require('express');
-var mongoose = require('mongoose');
-var pluralize = require('pluralize');
-
-
 var CrudGenerator = function (options){
 
 	var defaultOptions = {
@@ -45,42 +33,67 @@ var CrudGenerator = function (options){
 
 
 /*
+ * Creates an Express app with the RESTful
+ * routes.
+ *
  * @method app
+ * @return {Object} Express app
  */
 CrudGenerator.prototype.app = function (){
 
 	var app = express();
 
+	/*
+	 * GET /{resources}
+	 */
 	app.get(
 		'/'+this.routeStem,
 		this.options.middleware,
 		this.listResources.bind(this)
 	);
+	/*
+	 * GET /{resources}/create
+	 */
 	app.get(
 		'/'+this.routeStem+'/create',
 		this.options.middleware,
 		this.createResource.bind(this)
 	);
+	/*
+	 * POST /{resources}
+	 */
 	app.post(
 		'/'+this.routeStem,
 		this.options.middleware,
 		this.storeResource.bind(this)
 	);
+	/*
+	 * GET /{resources}/{id}
+	 */
 	app.get(
 		'/'+this.routeStem+'/:id',
 		this.options.middleware,
 		this.getResource.bind(this)
 	);
+	/*
+	 * GET /{resources}/{id}/edit
+	 */
 	app.get(
 		'/'+this.routeStem+'/:id/edit',
 		this.options.middleware,
 		this.editResource.bind(this)
 	);
+	/*
+	 * PUT /{resources}/{id}
+	 */
 	app.put(
 		'/'+this.routeStem+'/:id',
 		this.options.middleware,
 		this.updateResource.bind(this)
 	);
+	/*
+	 * DELETE /{resources}/{id}
+	 */
 	app.del(
 		'/'+this.routeStem+'/:id',
 		this.options.middleware,
@@ -93,7 +106,13 @@ CrudGenerator.prototype.app = function (){
 
 
 /*
+ * Returns a list of the model properties,
+ * not including those on the ignoredProperties
+ * list. By default this includes _id and __v
+ * as these are generate by Mongo.
+ * 
  * @method getProperties
+ * @return {Array} Array of the model properties
  */
 CrudGenerator.prototype.getProperties = function(){
 	var properties = [];
@@ -108,7 +127,12 @@ CrudGenerator.prototype.getProperties = function(){
 
 
 /*
+ * Handle a 'list' request, rendering a page
+ * with table of all of the existing resources.
+ *
  * @method listResources
+ * @param {Request} req
+ * @param {Response} res
  */
 CrudGenerator.prototype.listResources = function(req, res){
 	var $self = this;
@@ -123,8 +147,14 @@ CrudGenerator.prototype.listResources = function(req, res){
 };
 
 
-/*
+ /*
+ * Handle a 'create' request, rendering a page
+ * with an empty form with all the model
+ * properties.
+ *
  * @method createResource
+ * @param {Request} req
+ * @param {Response} res
  */
 CrudGenerator.prototype.createResource = function(req, res){
 	res.locals.settings = this;
@@ -134,7 +164,13 @@ CrudGenerator.prototype.createResource = function(req, res){
 
 
 /*
+ * Handle a 'store' request, saving the new
+ * resource and redirecting to the 'get' 
+ * method for the new resource.
+ *
  * @method storeResource
+ * @param {Request} req
+ * @param {Response} res
  */
 CrudGenerator.prototype.storeResource = function(req, res){
 	var $self = this;
@@ -155,7 +191,13 @@ CrudGenerator.prototype.storeResource = function(req, res){
 
 
 /*
+ * Handle a 'get' request, retrieving the
+ * specified resouce and rendering a page
+ * listing its properties.
+ *
  * @method getResource
+ * @param {Request} req
+ * @param {Response} res
  */
 CrudGenerator.prototype.getResource = function(req, res){
 	var $self = this;
@@ -171,7 +213,13 @@ CrudGenerator.prototype.getResource = function(req, res){
 
 
 /*
+ * Handle an 'edit' request, retrieving the
+ * specified resouce and rendering a page
+ * with a form to edit its properties.
+ *
  * @method editResource
+ * @param {Request} req
+ * @param {Response} res
  */
 CrudGenerator.prototype.editResource = function(req, res){
 	var $self = this;
@@ -187,7 +235,14 @@ CrudGenerator.prototype.editResource = function(req, res){
 
 
 /*
- * @method updateResource
+ * Handle an 'update' request, retrieving the
+ * specified resouce, updating its properties
+ * and redirecting to the 'get' method for the
+ * resource.
+ *
+ * @method getResource
+ * @param {Request} req
+ * @param {Response} res
  */
 CrudGenerator.prototype.updateResource = function(req, res){
 	var $self = this;
@@ -211,7 +266,14 @@ CrudGenerator.prototype.updateResource = function(req, res){
 
 
 /*
+ * Handle a 'delete' request, retrieving the
+ * specified resouce and removing it entirely
+ * before redirecting to the 'list' method for
+ * the model.
+ *
  * @method deleteResource
+ * @param {Request} req
+ * @param {Response} res
  */
 CrudGenerator.prototype.deleteResource = function(req, res){
 	var $self = this;
