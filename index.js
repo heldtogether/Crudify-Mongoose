@@ -159,7 +159,15 @@ CrudGenerator.prototype.getResource = function(req, res){
  * @method editResource
  */
 CrudGenerator.prototype.editResource = function(req, res){
-	console.log('edit');
+	var $self = this;
+	this.model
+	.findOne({_id: req.param('id')})
+	.exec(function (err, resource){
+		res.locals.settings = $self;
+		res.locals.properties = $self.getProperties();
+		res.locals.resource = resource;
+		res.render($self.options.theme+'edit.ejs');
+	});
 };
 
 

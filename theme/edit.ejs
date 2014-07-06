@@ -1,0 +1,15 @@
+<form action="." method="post">
+	<input type="hidden" name="_method" value="put">
+	<table>
+		<% properties.forEach(function(property){ %>
+			<tr>
+				<th><%= property %></th>
+				<td><input type="text" name="<%= property %>" value="<%= resource[property] %>"></td>
+			</tr>
+		<% }); %>
+		<tr>
+			<th></th>
+			<td><input type="submit" value="Update"></td>
+		</tr>
+	</table>
+</form>
