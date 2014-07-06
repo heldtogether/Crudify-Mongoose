@@ -137,7 +137,20 @@ CrudGenerator.prototype.createResource = function(req, res){
  * @method storeResource
  */
 CrudGenerator.prototype.storeResource = function(req, res){
-	console.log('store');
+	var $self = this;
+	var properties = this.getProperties();
+	var resource = new this.model();
+	properties.forEach(function(property){
+		if(req.param(property)){
+			resource[property] = req.param(property);
+		}
+	});
+	resource.save(function (err, property){
+		if(err){
+			console.log(err);
+		}
+		res.redirect($self.routeStem);
+	});
 };
 
 
