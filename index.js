@@ -39,7 +39,7 @@ var CrudGenerator = function (options){
 	this.options = options;
 	this.model = options.model;
 	this.modelName = options.model.modelName;
-	this.routeStem = '/'+pluralize(this.modelName);
+	this.routeStem = pluralize(this.modelName);
 
 };
 
@@ -52,37 +52,37 @@ CrudGenerator.prototype.app = function (){
 	var app = express();
 
 	app.get(
-		this.routeStem,
+		'/'+this.routeStem,
 		this.options.middleware,
 		this.listResources.bind(this)
 	);
 	app.get(
-		this.routeStem+'/create',
+		'/'+this.routeStem+'/create',
 		this.options.middleware,
 		this.createResource.bind(this)
 	);
 	app.post(
-		this.routeStem,
+		'/'+this.routeStem,
 		this.options.middleware,
 		this.storeResource.bind(this)
 	);
 	app.get(
-		this.routeStem+'/:id',
+		'/'+this.routeStem+'/:id',
 		this.options.middleware,
 		this.getResource.bind(this)
 	);
 	app.get(
-		this.routeStem+'/:id/edit',
+		'/'+this.routeStem+'/:id/edit',
 		this.options.middleware,
 		this.editResource.bind(this)
 	);
 	app.put(
-		this.routeStem+'/:id',
+		'/'+this.routeStem+'/:id',
 		this.options.middleware,
 		this.updateResource.bind(this)
 	);
 	app.del(
-		this.routeStem+'/:id',
+		'/'+this.routeStem+'/:id',
 		this.options.middleware,
 		this.deleteResource.bind(this)
 	);
@@ -115,6 +115,7 @@ CrudGenerator.prototype.listResources = function(req, res){
 	this.model
 	.find()
 	.exec(function (err, resources){
+		res.locals.settings = $self;
 		res.locals.properties = $self.getProperties();
 		res.locals.resources = resources;
 		res.render($self.options.theme+'list.ejs');

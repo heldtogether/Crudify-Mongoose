@@ -9,6 +9,10 @@
 		<% properties.forEach(function(property){ %>
 			<td><%= resource[property] %></td>
 		<% }); %>
+			<td>
+				<a href="<%= settings.routeStem %>/<%= resource._id %>">View</a>
+				<a href="<%= resource._id %>/edit">Edit</a>
+			</td>
 		</tr>
 	<% }); %>
 </table>
