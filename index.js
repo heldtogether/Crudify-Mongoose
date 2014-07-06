@@ -190,7 +190,23 @@ CrudGenerator.prototype.editResource = function(req, res){
  * @method updateResource
  */
 CrudGenerator.prototype.updateResource = function(req, res){
-	console.log('update');
+	var $self = this;
+	var properties = this.getProperties();
+	this.model
+	.findOne({_id: req.param('id')})
+	.exec(function (err, resource){
+		properties.forEach(function(property){
+			if(req.param(property)){
+				resource[property] = req.param(property);
+			}
+		});
+		resource.save(function (err, resource){
+			if(err){
+				console.log(err);
+			}
+			res.redirect($self.routeStem+'/'+resource._id);
+		});
+	});
 };
 
 
