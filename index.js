@@ -149,7 +149,7 @@ CrudGenerator.prototype.storeResource = function(req, res){
 		if(err){
 			console.log(err);
 		}
-		res.redirect($self.routeStem);
+		res.redirect($self.routeStem+'/'+resource._id);
 	});
 };
 
