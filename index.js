@@ -145,7 +145,7 @@ CrudGenerator.prototype.storeResource = function(req, res){
 			resource[property] = req.param(property);
 		}
 	});
-	resource.save(function (err, property){
+	resource.save(function (err, resource){
 		if(err){
 			console.log(err);
 		}
