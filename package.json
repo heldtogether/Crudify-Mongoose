@@ -1,5 +1,5 @@
 {
-	"name": "express-mongoose-crud",
+	"name": "crudify-mongoose",
 	"version": "0.0.1",
 	"description": "Generates CRUD routes for a given Mongoose model.",
 	"main": "index.js",
@@ -13,11 +13,11 @@
 	"author": "Josh Sephton",
 	"license": "MIT",
 	"dependencies": {
-		"underscore": "1.5.2",
-		"express": "3.4.8",
-		"mongoose": "3.8.8",
-		"ejs": "0.8.5",
-		"pluralize": "0.0.10"
+		"underscore": "^1.0.0",
+		"express": "~3.0.0",
+		"mongoose": "^3.0.0",
+		"ejs": "*",
+		"pluralize": "^0.0.10"
 	},
 	"devDependencies": {
 		"grunt": "^0.4.5",
