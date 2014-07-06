@@ -70,7 +70,7 @@ CrudGenerator.prototype.app = function (){
 	 * GET /{resources}
 	 */
 	app.get(
-		'/'+this.routeStem,
+		'/'+this.routeStem+'/',
 		this.options.middleware,
 		this.listResources.bind(this)
 	);
@@ -94,7 +94,7 @@ CrudGenerator.prototype.app = function (){
 	 * GET /{resources}/{id}
 	 */
 	app.get(
-		'/'+this.routeStem+'/:id',
+		'/'+this.routeStem+'/:id/',
 		this.options.middleware,
 		this.getResource.bind(this)
 	);
@@ -110,7 +110,7 @@ CrudGenerator.prototype.app = function (){
 	 * PUT /{resources}/{id}
 	 */
 	app.put(
-		'/'+this.routeStem+'/:id',
+		'/'+this.routeStem+'/:id/',
 		this.options.middleware,
 		this.updateResource.bind(this)
 	);
