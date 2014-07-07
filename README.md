@@ -56,7 +56,7 @@ crudGenerator(options);
 ## Example
 
 ```js
-var crudGenerator = require('./library/crud-generator');
+var crudGenerator = require('crudify-mongoose');
 var userModel = require('./model/user');
 
 /**
@@ -91,8 +91,6 @@ app.use('/admin', crudGenerator({
 
 
 ## License
-
-(The MIT License)
 
 The MIT License (MIT)
 
