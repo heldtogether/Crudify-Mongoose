@@ -82,6 +82,14 @@ app.use('/admin', crudGenerator({
 }));
 ```
 
+## Todo
+
+- Modify to accept multiple models in one call to `app()`.
+- Listen to `Accept:` header or file extension to determine whether to send HTML or encoded (e.g. JSON) responses.
+- Make Create/Edit forms smart enough to allow you to pick a relation from a list where appropriate.
+- Make Create/Edit forms smart enough to allow you to supply an array where appropriate.
+
+
 ## License
 
 (The MIT License)
