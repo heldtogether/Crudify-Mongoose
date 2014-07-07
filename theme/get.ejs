@@ -2,7 +2,11 @@
 	<% properties.forEach(function(property){ %>
 		<tr>
 			<th><%= property %></th>
-			<td><%= resource[property] %></td>
+			<td>
+				<% if(typeof resource[property] !== 'undefined'){ %>
+					<%= resource[property] %>
+				<% } %>
+			</td>
 		</tr>
 	<% }); %>
 	<tr>

@@ -4,7 +4,7 @@
 		<% properties.forEach(function(property){ %>
 			<tr>
 				<th><%= property %></th>
-				<td><input type="text" name="<%= property %>" value="<%= resource[property] %>"></td>
+				<td><input type="text" name="<%= property %>" value="<%= (typeof resource[property] !== 'undefined') ? resource[property] : '' %>"></td>
 			</tr>
 		<% }); %>
 		<tr>
