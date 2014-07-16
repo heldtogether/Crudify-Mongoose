@@ -1,6 +1,6 @@
 {
 	"name": "crudify-mongoose",
-	"version": "0.0.5",
+	"version": "0.0.6",
 	"description": "Generates CRUD routes for a given Mongoose model.",
 	"main": "index.js",
 	"scripts": {
