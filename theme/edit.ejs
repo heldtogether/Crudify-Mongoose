@@ -1,6 +1,6 @@
-<form action=".." method="post">
-	<input type="hidden" name="_method" value="put">
-	<table>
+<table>
+	<form action=".." method="post">
+		<input type="hidden" name="_method" value="put">
 		<% properties.forEach(function(property){ %>
 			<tr>
 				<th><%= property %></th>
@@ -11,5 +11,12 @@
 			<th></th>
 			<td><input type="submit" value="Update"></td>
 		</tr>
-	</table>
-</form>
+	</form>
+	<form action=".." method="post" onsubmit="return confirm('Do you really want to delete this resource?');">
+		<tr>
+		<input type="hidden" name="_method" value="delete">
+			<th></th>
+			<td><input type="submit" value="Delete"></td>
+		</tr>
+	</form>
+</table>
