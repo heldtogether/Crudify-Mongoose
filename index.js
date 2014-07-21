@@ -52,6 +52,12 @@ var CrudGenerator = function (options){
 	 */
 	this.routeStem = pluralize(this.modelName);
 
+	/*
+	 * @property method
+	 * @type String
+	 */
+	this.method;
+
 };
 
 
@@ -166,6 +172,7 @@ CrudGenerator.prototype.getProperties = function(){
  * @param {Response} res
  */
 CrudGenerator.prototype.listResources = function(req, res){
+	this.method = 'list';
 	var $self = this;
 	this.model
 	.find()
@@ -188,6 +195,7 @@ CrudGenerator.prototype.listResources = function(req, res){
  * @param {Response} res
  */
 CrudGenerator.prototype.createResource = function(req, res){
+	this.method = 'create';
 	res.locals.settings = this;
 	res.locals.properties = this.getProperties();
 	res.render(this.options.theme+'/create.ejs');
@@ -204,6 +212,7 @@ CrudGenerator.prototype.createResource = function(req, res){
  * @param {Response} res
  */
 CrudGenerator.prototype.storeResource = function(req, res){
+	this.method = 'store';
 	var $self = this;
 	var properties = this.getProperties();
 	var resource = new this.model();
@@ -231,6 +240,7 @@ CrudGenerator.prototype.storeResource = function(req, res){
  * @param {Response} res
  */
 CrudGenerator.prototype.getResource = function(req, res){
+	this.method = 'get';
 	var $self = this;
 	this.model
 	.findOne({_id: req.param('id')})
@@ -253,6 +263,7 @@ CrudGenerator.prototype.getResource = function(req, res){
  * @param {Response} res
  */
 CrudGenerator.prototype.editResource = function(req, res){
+	this.method = 'edit';
 	var $self = this;
 	this.model
 	.findOne({_id: req.param('id')})
@@ -276,6 +287,7 @@ CrudGenerator.prototype.editResource = function(req, res){
  * @param {Response} res
  */
 CrudGenerator.prototype.updateResource = function(req, res){
+	this.method = 'update';
 	var $self = this;
 	var properties = this.getProperties();
 	this.model
@@ -307,6 +319,7 @@ CrudGenerator.prototype.updateResource = function(req, res){
  * @param {Response} res
  */
 CrudGenerator.prototype.deleteResource = function(req, res){
+	this.method = 'delete';
 	var $self = this;
 	this.model
 	.findOneAndRemove({_id: req.param('id')})
