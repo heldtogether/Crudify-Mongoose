@@ -13,13 +13,15 @@ var pluralize = require('pluralize');
  * @param {Object} options.model
  * @param {String} [options.theme]
  * @param {Array} [options.middleware]
+ * @param {Array} [options.overviewProperties]
  * @param {Array} [options.ignoredProperties]
  */
 var CrudGenerator = function (options){
 
 	var defaultOptions = {
 		theme: __dirname+'/theme',
-		ignoredProperties: ['__v', '_id']
+		ignoredProperties: ['__v', '_id'],
+		overviewProperties: []
 	};
 
 	_.defaults(options, defaultOptions);
@@ -29,7 +31,8 @@ var CrudGenerator = function (options){
 	 * @type Object
 	 * @default {
 	 *	theme: __dirname+'/theme/',
-	 *	ignoredProperties: ['__v', '_id']
+	 *	ignoredProperties: ['__v', '_id'],
+	 *	overviewProperties: []
 	 * }
 	 */
 	this.options = options;

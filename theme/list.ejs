@@ -1,14 +1,15 @@
 <a href="create">Create</a>
 <table>
 	<tr>
-		<% properties.forEach(function(property){ %>
+		<% var overviewProperties = settings.options.overviewProperties.length ? settings.options.overviewProperties : properties; %>
+		<% overviewProperties.forEach(function(property){ %>
 			<th><%= property %></th>
 		<% }); %>
 		<th>Actions</th>
 	</tr>
 	<% resources.forEach(function(resource){ %>
 		<tr>
-			<% properties.forEach(function(property){ %>
+			<% overviewProperties.forEach(function(property){ %>
 				<td>
 					<% if(typeof resource[property] !== 'undefined'){ %>
 						<%= resource[property] %>
