@@ -21,7 +21,8 @@ var CrudGenerator = function (options){
 	var defaultOptions = {
 		theme: __dirname+'/theme',
 		ignoredProperties: ['__v', '_id'],
-		overviewProperties: []
+		overviewProperties: [],
+		query: {}
 	};
 
 	_.defaults(options, defaultOptions);
@@ -178,7 +179,7 @@ CrudGenerator.prototype.listResources = function(req, res){
 	this.method = 'list';
 	var $self = this;
 	this.model
-	.find()
+	.find($self.options.query)
 	.exec(function (err, resources){
 		res.locals.settings = $self;
 		res.locals.properties = $self.getProperties();
