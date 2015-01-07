@@ -221,7 +221,9 @@ CrudGenerator.prototype.storeResource = function(req, res){
 	var properties = this.getProperties();
 	var resource = new this.model();
 	properties.forEach(function(property){
-		if(req.param(property)){
+		if($self.options.query[property]){
+			resource[property] = $self.options.query[property];
+		} else if(req.param(property)){
 			resource[property] = req.param(property);
 		}
 	});
