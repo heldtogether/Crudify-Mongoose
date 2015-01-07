@@ -54,7 +54,11 @@ var CrudGenerator = function (options){
 	 * @property routeStem
 	 * @type String
 	 */
-	this.routeStem = pluralize(this.modelName);
+	if(options.routeStem){
+		this.routeStem = options.routeStem;
+	} else {
+		this.routeStem = pluralize(this.modelName);
+	}
 
 	/*
 	 * @property method
